@@ -1,7 +1,8 @@
-import java.util.Random;
-import java.util.ArrayList;
+package iVoteSimulator;
 
-// Main class to drive the simulation
+import java.util.ArrayList;
+import java.util.Random;
+
 public class SimulationDriver {
 
     private static Student[] students;
@@ -9,18 +10,8 @@ public class SimulationDriver {
     private static Random random = new Random();
 
     public static void main(String[] args) {
-
         students = generateStudents();
-
-        int type = random.nextInt(2);
-        if (type == 0) {
-            question = new MultipleChoiceQuestion();
-            generateMCAnswers();
-        } else {
-            question = new SingleChoiceQuestion();
-            generateSCAnswers();
-        }
-
+        configureQuestion();
         VotingService vote = new VotingService(students, question);
     }
 
@@ -35,27 +26,36 @@ public class SimulationDriver {
                 ID = random.nextInt(8999) + 1000;
 
             studentIDs.add(ID);
-            students[i] = new Student();
-            students[i].setID(ID);
+            students[i] = new Student(ID);
         }
         return students;
+    }
+
+    private static void configureQuestion() {
+        int type = random.nextInt(2);
+        if (type == 0) {
+            question = new MultipleChoiceQuestion();
+            generateMCAnswers();
+        } else {
+            question = new SingleChoiceQuestion();
+            generateSCAnswers();
+        }
     }
 
     private static void generateMCAnswers() {
         String[] answers = {"A", "B", "C", "D"};
         question.setQuestion("Sample Question #1: Choose A, B, C or D");
-        int choice = random.nextInt(4);
-        question.setAnswer(answers[choice]);
+        question.setAnswer(String.join(",", answers));
 
         for (Student student : students) {
-            choice = random.nextInt(4);
+            int choice = random.nextInt(4);
             student.setAnswer(answers[choice]);
         }
     }
 
     private static void generateSCAnswers() {
         question.setQuestion("Sample Question #2: Choose True or False");
-        question.setAnswer("True");
+        question.setAnswer("True,False");
 
         for (Student student : students) {
             int choice = random.nextInt(2);
