@@ -1,10 +1,11 @@
-// Student class with unique ID and submission answer
+package iVoteSimulator;
+
 public class Student {
     private int uniqueID;
     private String answer;
 
-    public Student() {
-        this.uniqueID = 1;
+    public Student(int uniqueID) {
+        this.uniqueID = uniqueID;
         this.answer = "N/A";
     }
 
