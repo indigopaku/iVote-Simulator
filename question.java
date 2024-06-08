@@ -1,11 +1,11 @@
 package iVoteSimulator;
 
 import java.util.ArrayList;
-
-public interface Question {
-    public String getQuestion(); 
-    public void setQuestion(String question);
-    public void setAnswer(ArrayList<String> answer);
-    public ArrayList<String> getAnswer();
-    public boolean isMultiChoice();
+// Question interface 
+interface Question {
+    String setQuestionType(); // Define whether multiple-choice or single-choice question
+    String setAnswerType();   // Define answer
+    boolean multipleChoice(); // Define whether multiple choice
+    void setQuestion(String question); // Sets a question
+    void setAnswer(String answer); // Sets an answer
 }
